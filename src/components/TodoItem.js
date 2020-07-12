@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
-import './TodoItem.css'
+import './TodoItem.css';
+import classNames from 'classnames';
+import checkImg from '../img/check.svg';
+import checkCompleteImg from '../img/check-complete.svg';
+import multiply from '../img/multiply.svg';
 
 class TodoItem extends Component {
+
     render() {
-        const {item} = this.props;
-        let className = 'TodoItem';
+        const {item, onClickCheck, onClickDelete, onEdit} = this.props;
+        let url = checkImg;
         if(item.isComplete) {
-            className += ' TodoItem-complete';
-        } 
+            url = checkCompleteImg;
+        }
         return ( 
-            <div className={className}>
-                <p>{this.props.item.title}</p>
+            <div className={classNames('TodoItem', {
+                'TodoItem-complete': item.isComplete
+            })}>
+                <img onClick={onClickCheck} src={url} width={32} />
+                {
+                    !item.isEdit && <p onDoubleClick={onEdit} >
+                    {this.props.item.title}</p>
+                }
+                {
+                    item.isEdit && <input type="text" autoFocus
+                    defaultValue={item.title}
+                    />
+                }
+                <img onClick={onClickDelete} className="Delete" src={multiply} width={12} />
             </div>
         );
     }
-}
+}   
 
 export default TodoItem;

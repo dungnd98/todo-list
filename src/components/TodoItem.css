@@ -1,11 +1,33 @@
 .TodoItem {
+    display: flex;
     font-family: Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-size: 24px;
     color:#4d4d4d;
+    padding: 10px 10px;
+    border: 1px solid #EEE;
 }
 
-.TodoItem-complete {
+.TodoItem > p {
+    margin: 0 0 0 15px;
+    width: 100%;
+}
+
+.TodoItem-complete > p {
     text-decoration: line-through;
     opacity: 0.3;
+    transition: opacity 0.4s;
+}
+
+.TodoItem input {
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    border: none;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.TodoItem input:focus {
+    outline: none;
 }
