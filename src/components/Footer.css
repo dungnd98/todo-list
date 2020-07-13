@@ -1,0 +1,30 @@
+.Footer {
+    border-top: 1px solid #EEE;
+    display: flex;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin: 0px 10px 10px 10px;
+    align-items: center;
+    padding: 10px;
+    opacity: 0.6;
+}
+
+.Footer button {
+    margin-right: 15px;
+    background-color: #fff;
+    border:1px solid #EEE;
+    font-size: 15px;
+}
+
+.Footer .cout {
+    font-size: 16px;
+}
+
+/* .Footer button:hover {
+    border: 1px solid #efd0d0;
+} */
+.Footer .button {
+    width: 50%;
+    margin-left: 70px;
+}

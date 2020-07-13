@@ -8,7 +8,7 @@ import multiply from '../img/multiply.svg';
 class TodoItem extends Component {
 
     render() {
-        const {item, onClickCheck, onClickDelete, onEdit} = this.props;
+        const {item, onClickCheck, onClickDelete, onEdit, doneEdit} = this.props;
         let url = checkImg;
         if(item.isComplete) {
             url = checkCompleteImg;
@@ -25,6 +25,7 @@ class TodoItem extends Component {
                 {
                     item.isEdit && <input type="text" autoFocus
                     defaultValue={item.title}
+                    onKeyUp={doneEdit}
                     />
                 }
                 <img onClick={onClickDelete} className="Delete" src={multiply} width={12} />
