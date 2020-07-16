@@ -15,16 +15,19 @@
     background-color: #fff;
     border:1px solid #EEE;
     font-size: 15px;
+    border-radius: 5px;
+    outline: none;
 }
 
 .Footer .cout {
     font-size: 16px;
 }
 
-/* .Footer button:hover {
-    border: 1px solid #efd0d0;
-} */
 .Footer .button {
     width: 50%;
     margin-left: 70px;
+}
+
+.Footer .active {
+    background-color: #CCC;
 }

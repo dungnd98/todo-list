@@ -8,6 +8,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      filter: 'all',
       newItem: '',
       todoItems: [
         { title: 'Dung di choi', isComplete: false, isEdit: false },
@@ -19,6 +20,9 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.coutItem = this.coutItem.bind(this);
     this.todosComplete = this.todosComplete.bind(this);
+    this.onClickComplete = this.onClickComplete.bind(this);
+    this.updateFilter = this.updateFilter.bind(this);
+    // this.onClickAll = this.onClickAll.bind(this);
   }
 
   onItemClick(item) {
@@ -62,6 +66,8 @@ class App extends Component {
     })
   }
 
+  //Xoa item
+
   deleteTodo(index) {
     const { todoItems } = this.state;
     todoItems.splice(index, 1);
@@ -69,6 +75,8 @@ class App extends Component {
       todoItems
     })
   }
+
+  //sua item
 
   editItem(item, index) {
     const {todoItems} = this.state;
@@ -133,19 +141,71 @@ class App extends Component {
     // }
   }
 
+  //Hien so item chua hoan thanh
   coutItem() {
     const {todoItems} = this.state;
     const dem = todoItems.filter(item => !item.isComplete).length;
     return dem;
   }
+  //Dem so item da hoan thanh
+  todosComplete() {
+    return this.state.todoItems.filter(item => item.isComplete).length;
+  }
+  
+  //Xoa cac item da hoan thanh
+  onClickComplete() {
+    const{todoItems} = this.state;
+    const items = todoItems.filter(item => !item.isComplete);
+    this.setState({
+      todoItems: [
+        ...items
+      ]
+    })
+  }
+
+  // onClickAll() {
+  //   const {todoItems} = this.state;
+  //   //const items = this.state.todoItems.filter(item => item);
+  //   this.setState({
+  //     todoItems
+  //   })
+  // }
+  //Thay doi gia tri filter
+  updateFilter(filter) {
+    this.setState({
+      filter: filter
+    })
+  }
+
+  //Thay doi trang thai filter
+  todosFilter = () => {
+    if(this.state.filter === 'all') {
+      return this.state.todoItems;
+    }
+    else if(this.state.filter === 'active') {
+      return this.state.todoItems.filter(item => !item.isComplete)
+    }
+    else if(this.state.filter === 'complete') {
+      return this.state.todoItems.filter(item => item.isComplete)
+    }
+  }
+
+  //Chon tat ca item
+  onClick = () => {
+    const {todoItems} = this.state;
+    todoItems.forEach(item => item.isComplete = !item.isComplete)
+    this.setState({
+      todoItems
+    })
+  }
 
   render() {
-    const { todoItems, newItem } = this.state;
+    const { todoItems, newItem, filter } = this.state;
     return (
       <div className="App">
         <h1>Todo List</h1>
         <div className="Header">
-          <img  src={tickImg} width={32} />
+          <img  src={tickImg} width={32} onClick={this.onClick} />
           <input
             type="text"
             onKeyUp={this.onKeyUp}
@@ -155,7 +215,7 @@ class App extends Component {
           />
         </div>
         {
-          todoItems.map((item, index) =>
+          this.todosFilter().map((item, index) =>
             <TodoItem key={index}
               item={item}
               onClickCheck={this.onItemClick(item)}
@@ -167,6 +227,11 @@ class App extends Component {
         <Footer 
           cout={this.coutItem()}
           todosComplete={this.todosComplete()}
+          onClickComplete = {this.onClickComplete}
+          onClickAll = {() => this.updateFilter('all')}
+          onClickActive = {() => this.updateFilter('active')}
+          onClickDone = {() => this.updateFilter('complete')}
+          filter={filter}
           />
       </div>
     );
